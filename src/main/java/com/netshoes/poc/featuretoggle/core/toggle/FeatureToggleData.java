@@ -16,8 +16,7 @@ class FeatureToggleData {
 	}
 
 	boolean get(final Feature feature) {
-		final Optional<Boolean> value = Optional.ofNullable(features.get(feature.getKey()));
-		return value.isPresent() ? value.get() : feature.getDefaultValue();
+		return Optional.ofNullable(features.get(feature.getKey())).orElse(feature.getDefaultValue());
 	}
 
 }
