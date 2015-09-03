@@ -22,18 +22,22 @@ public class FeatureToggleInterceptor {
 
 	@AroundInvoke
 	protected Object invoke(InvocationContext context) throws Exception {
-		final Enumeration<String> headerNames = request.getHeaderNames();
-		String key;
-		boolean value;
-		while (headerNames.hasMoreElements()) {
-			key = (String) headerNames.nextElement();
-			
-			if (key.startsWith("feature-")) {
-				value = Boolean.valueOf(request.getHeader(key));
-				featureToggleData.add(key, value);
-			}
+		Enumeration<String> headerNames = null;
+		try {
+			headerNames = request.getHeaderNames();
+			String key;
+			boolean value;
+			while (headerNames.hasMoreElements()) {
+				key = (String) headerNames.nextElement();
+				
+				if (key.startsWith("feature-")) {
+					value = Boolean.valueOf(request.getHeader(key));
+					featureToggleData.add(key, value);
+				}
+			}	
+		} catch(Exception e) {
+			throw new InvalidaFeatureToggleException("Invalid feature toggle format! It expected : param=true or param=false.", e);
 		}
 		return context.proceed();
 	}
-
 }
