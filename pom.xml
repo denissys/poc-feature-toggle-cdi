@@ -144,7 +144,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.denissys.MyApplication</mainClass>
+							<mainClass>com.netshoes.poc.featuretoggle.Application</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>.</Class-Path>
